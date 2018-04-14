@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wangq on 2017/3/20.
+ * Created by llyz.
  */
 @Controller
 @RequestMapping("/admin/setting")
@@ -89,7 +89,6 @@ public class SettingController extends BaseController {
         }
     }
 
-
     /**
      * 系统备份
      *
@@ -117,7 +116,6 @@ public class SettingController extends BaseController {
             return RestResponseBo.fail(msg);
         }
     }
-
 
     /**
      * 数组转字符串

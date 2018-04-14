@@ -7,7 +7,7 @@ import com.my.blog.website.utils.TaleUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by 13 on 2017/2/21.
+ * Created by llyz.
  */
 public abstract class BaseController {
 

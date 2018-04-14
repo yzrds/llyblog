@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * Created by BlueT on 2017/3/4.
+ * Created by llyz.
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -19,7 +19,6 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return "comm/error_500";
     }
-
 
     @ExceptionHandler(value = Exception.class)
     public String exception(Exception e){

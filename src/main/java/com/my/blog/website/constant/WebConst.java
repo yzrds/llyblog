@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by BlueT on 2017/3/3.
+ * Created by llyz on 2017/3/9.
  */
 @Component
 public class WebConst {
@@ -18,7 +18,6 @@ public class WebConst {
     public static final String INSTALL_FILE_CONF = "install.lock";
 
     public static Map<String, String> initConfig = new HashMap<>();
-
 
     public static String LOGIN_SESSION_KEY = "login_user";
 

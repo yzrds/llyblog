@@ -85,7 +85,6 @@ public class IndexController extends BaseController {
         return "admin/login";
     }
 
-
     /**
      * 保存个人信息
      */

@@ -265,7 +265,6 @@ public class IndexController extends BaseController {
         return this.render("page-category");
     }
 
-
     /**
      * 归档页
      *
@@ -311,7 +310,6 @@ public class IndexController extends BaseController {
         updateArticleHit(contents.getCid(), contents.getHits());
         return this.render("page");
     }
-
 
     /**
      * 搜索页
