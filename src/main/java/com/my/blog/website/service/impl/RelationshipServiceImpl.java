@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by BlueT on 2017/3/18.
+ * Created by llyz.
  */
 @Service
 public class RelationshipServiceImpl implements IRelationshipService {
