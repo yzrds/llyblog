@@ -10,6 +10,7 @@ import com.my.blog.website.service.ILogService;
 import com.my.blog.website.service.IUserService;
 import com.my.blog.website.utils.Commons;
 import com.my.blog.website.utils.TaleUtils;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -62,10 +64,11 @@ public class AuthController extends BaseController {
                                   @RequestParam(required = false) String remeber_me,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-
         Integer error_count = cache.get("login_error_count");
         try {
-            UserVo user = usersService.login(username, password);
+            byte[] pwd = password.getBytes();
+            String pwdbase64=(new BASE64Encoder()).encodeBuffer(pwd);
+            UserVo user = usersService.login(username, pwdbase64);
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, user);
             if (StringUtils.isNotBlank(remeber_me)) {
                 TaleUtils.setCookie(response, user.getUid());
@@ -93,14 +96,13 @@ public class AuthController extends BaseController {
      * @param session
      * @param response
      */
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/logout",method = RequestMethod.DELETE)
     public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
         Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         try {
-            //response.sendRedirect(Commons.site_url());
             response.sendRedirect(Commons.site_login());
         } catch (IOException e) {
             e.printStackTrace();
