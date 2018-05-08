@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by llyz on 2017/3/9.
+ * @author llyz on 2017/3/9.
  */
 @Component
 public class WebConst {
@@ -22,6 +22,11 @@ public class WebConst {
     public static String LOGIN_SESSION_KEY = "login_user";
 
     public static final String USER_IN_COOKIE = "S_L_ID";
+
+    /**
+     * 最大允许的登录次数
+     */
+    public static final int MAX_ALLOW = 10;
 
     /**
      * aes加密加盐
@@ -51,7 +56,7 @@ public class WebConst {
     /**
      * 点击次数超过多少更新到数据库
      */
-    public static final int HIT_EXCEED = 10;
+    public static final int HIT_EXCEED = 1;
 
     /**
      * 上传文件最大1M

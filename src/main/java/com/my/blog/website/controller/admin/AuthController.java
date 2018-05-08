@@ -10,7 +10,6 @@ import com.my.blog.website.service.ILogService;
 import com.my.blog.website.service.IUserService;
 import com.my.blog.website.utils.Commons;
 import com.my.blog.website.utils.TaleUtils;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,13 +17,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static com.my.blog.website.constant.WebConst.MAX_ALLOW;
 
 /**
  * 用户后台登录/登出
@@ -50,6 +50,7 @@ public class AuthController extends BaseController {
 
     /**
      * 管理后台登录
+     *
      * @param username
      * @param password
      * @param remeber_me
@@ -66,9 +67,7 @@ public class AuthController extends BaseController {
                                   HttpServletResponse response) {
         Integer error_count = cache.get("login_error_count");
         try {
-            byte[] pwd = password.getBytes();
-            String pwdbase64=(new BASE64Encoder()).encodeBuffer(pwd);
-            UserVo user = usersService.login(username, pwdbase64);
+            UserVo user = usersService.login(username, password);
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, user);
             if (StringUtils.isNotBlank(remeber_me)) {
                 TaleUtils.setCookie(response, user.getUid());
@@ -76,10 +75,10 @@ public class AuthController extends BaseController {
             logService.insertLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), user.getUid());
         } catch (Exception e) {
             error_count = null == error_count ? 1 : error_count + 1;
-            if (error_count > 3) {
-                return RestResponseBo.fail("您输入密码已经错误超过3次，请10分钟后尝试");
+            if (error_count > MAX_ALLOW) {
+                return RestResponseBo.fail("您输入密码已经错误超过"+MAX_ALLOW+"次，请1分钟后尝试");
             }
-            cache.set("login_error_count", error_count, 10 * 60);
+            cache.set("login_error_count", error_count, 60);
             String msg = "登录失败";
             if (e instanceof TipException) {
                 msg = e.getMessage();
@@ -93,10 +92,11 @@ public class AuthController extends BaseController {
 
     /**
      * 注销
+     *
      * @param session
      * @param response
      */
-    @RequestMapping(value = "/logout",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
     public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
         Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
