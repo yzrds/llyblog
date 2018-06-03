@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import static com.my.blog.website.constant.WebConst.MAX_CONTENT;
+
 /**
  * Created by llyz.
  */
@@ -114,7 +116,7 @@ public class CommentController extends BaseController {
             return RestResponseBo.fail("请输入完整后评论");
         }
 
-        if(content.length() > 2000){
+        if(content.length() > MAX_CONTENT){
             return RestResponseBo.fail("请输入2000个字符以内的回复");
         }
         CommentVo c = commentsService.getCommentById(coid);

@@ -64,6 +64,11 @@ public class WebConst {
     public static Integer MAX_FILE_SIZE = 1048576;
 
     /**
+     * 回复的最大值
+     */
+    public static Integer MAX_CONTENT = 2000;
+
+    /**
      * 要过滤的ip列表
      */
     public static final Set<String> BLOCK_IPS = new HashSet<>(16);
