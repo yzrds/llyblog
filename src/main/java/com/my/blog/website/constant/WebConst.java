@@ -69,6 +69,29 @@ public class WebConst {
     public static Integer MAX_CONTENT = 2000;
 
     /**
+     * 密码最大位数
+     */
+    public static Integer MAX_PASSWORD = 14;
+
+    /**
+     * 密码最短位数
+     */
+    public static Integer MIN_PASSWORD = 6;
+
+    /**
+     * 最大作者名字长度
+     */
+    public static Integer MAX_AUTHOR = 50;
+
+    /**
+     * 评论内容最大长度
+     */
+    public static Integer MAX_TEXT = 200;
+
+
+
+
+    /**
      * 要过滤的ip列表
      */
     public static final Set<String> BLOCK_IPS = new HashSet<>(16);

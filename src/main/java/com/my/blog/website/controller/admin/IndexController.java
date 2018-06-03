@@ -27,6 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.my.blog.website.constant.WebConst.MAX_PASSWORD;
+import static com.my.blog.website.constant.WebConst.MIN_PASSWORD;
+
 /**
  * 后台管理首页
  * Created by Administrator on 2017/3/9 009.
@@ -126,7 +129,7 @@ public class IndexController extends BaseController {
         if (!users.getPassword().equals(TaleUtils.MD5encode(users.getUsername() + oldPassword))) {
             return RestResponseBo.fail("旧密码错误");
         }
-        if (password.length() < 6 || password.length() > 14) {
+        if (password.length() < MIN_PASSWORD || password.length() > MAX_PASSWORD) {
             return RestResponseBo.fail("请输入6-14位密码");
         }
 

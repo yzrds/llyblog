@@ -35,6 +35,9 @@ import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.util.List;
 
+import static com.my.blog.website.constant.WebConst.MAX_AUTHOR;
+import static com.my.blog.website.constant.WebConst.MAX_TEXT;
+
 /**
  * 首页
  * Created by Administrator on 2017/3/8 008.
@@ -178,7 +181,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail("请输入完整后评论");
         }
 
-        if (StringUtils.isNotBlank(author) && author.length() > 50) {
+        if (StringUtils.isNotBlank(author) && author.length() > MAX_AUTHOR) {
             return RestResponseBo.fail("姓名过长");
         }
 
@@ -190,7 +193,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail("请输入正确的URL格式");
         }
 
-        if (text.length() > 200) {
+        if (text.length() > MAX_TEXT) {
             return RestResponseBo.fail("请输入200个字符以内的评论");
         }
 
