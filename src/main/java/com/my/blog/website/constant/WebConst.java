@@ -88,9 +88,6 @@ public class WebConst {
      */
     public static Integer MAX_TEXT = 200;
 
-
-
-
     /**
      * 要过滤的ip列表
      */
