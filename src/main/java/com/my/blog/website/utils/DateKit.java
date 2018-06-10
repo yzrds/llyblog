@@ -311,11 +311,9 @@ public class DateKit {
                 case 7:
                     result = intervalTime / 1L;
             }
-
             if(tmp > 0L) {
                 result = 0L - result;
             }
-
             return (int)result;
         }
     }
@@ -395,6 +393,7 @@ public class DateKit {
     }
 
     public static String getTime(int format) {
+        // TODO 改为switch
         StringBuffer cTime = new StringBuffer(10);
         Calendar time = Calendar.getInstance();
         int miltime = time.get(14);
@@ -502,13 +501,11 @@ public class DateKit {
         long time = date.getTime() / 1000L + 86400L;
         date.setTime(time * 1000L);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
         try {
             date = format.parse(format.format(date));
         } catch (Exception var5) {
             System.out.println(var5.getMessage());
         }
-
         return date;
     }
 
@@ -517,13 +514,11 @@ public class DateKit {
         long time = newDate.getTime() / 1000L + 86400L;
         newDate.setTime(time * 1000L);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
         try {
             newDate = format.parse(format.format(newDate));
         } catch (Exception var6) {
             System.out.println(var6.getMessage());
         }
-
         return newDate;
     }
 
@@ -531,13 +526,11 @@ public class DateKit {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String dateStr = dateFormat(date);
-
         try {
             date = format.parse(dateStr);
         } catch (ParseException var4) {
             var4.printStackTrace();
         }
-
         return date;
     }
 
@@ -633,14 +626,11 @@ public class DateKit {
                     format.setLenient(false);
                     date = format.parse(input);
                 } catch (ParseException var5) {
-                    ;
                 }
-
                 if(date != null) {
                     break;
                 }
             }
-
             return date;
         }
     }
@@ -668,5 +658,4 @@ public class DateKit {
         tomorrow.set(13, 0);
         return Long.valueOf(String.valueOf(tomorrow.getTimeInMillis()).substring(0, 10));
     }
-
 }

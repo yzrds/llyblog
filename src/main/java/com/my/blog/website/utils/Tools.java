@@ -5,11 +5,6 @@ import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -86,7 +81,6 @@ public class Tools {
         if (null != str && 0 != str.trim().length() && str.matches("\\d*")) {
             return true;
         }
-
         return false;
     }
 }
